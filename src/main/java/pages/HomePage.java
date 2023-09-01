@@ -35,6 +35,12 @@ public class HomePage {
     @FindBy(className ="shopping_cart_badge")
     WebElement shoppingCartBadge;
 
+    @FindBy(className ="inventory_item_name")
+    List<WebElement> productNameElements;
+
+    @FindBy(className ="inventory_item_price")
+    List<WebElement> priceElements;
+
     public HomePage(WebDriver driver){
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -146,42 +152,24 @@ public class HomePage {
     }
 
     public void clickOnProduct(String productName) {
-        // Find all product elements on the page
-        List<WebElement> productElements = driver.findElements(By.className("inventory_item_name"));
-
-        // Iterate through the product elements to find the matching product name
-        for (WebElement productElement : productElements) {
+        for (WebElement productElement : productNameElements) {
             if (productElement.getText().equals(productName)) {
-                // Click on the matching product element
                 productElement.click();
                 break;
             }
         }
     }
 
-    // Get the product name for a given product
     public String getProductName(String productName) {
-        // Find all product elements on the page
-        List<WebElement> productElements = driver.findElements(By.className("inventory_item_name"));
-
-        // Iterate through the product elements to find the matching product name
-        for (WebElement productElement : productElements) {
+        for (WebElement productElement : productNameElements) {
             if (productElement.getText().equals(productName)) {
-                // Return the matching product name
                 return productElement.getText();
             }
         }
-
-        // If the product is not found, return null or an appropriate value
         return null;
     }
 
-    // Get the product price for a given product
     public String getProductPrice(String productName) {
-        // Find all price elements on the page
-        List<WebElement> priceElements = driver.findElements(By.className("inventory_item_price"));
-
-        // Iterate through the price elements to find the matching product name and its corresponding price
         for (int i = 0; i < priceElements.size(); i++) {
             WebElement productElement = driver.findElements(By.className("inventory_item_name")).get(i);
             if (productElement.getText().equals(productName)) {
@@ -189,8 +177,6 @@ public class HomePage {
                 return priceElements.get(i).getText();
             }
         }
-
-        // If the product is not found, return null or an appropriate value
         return null;
     }
 }

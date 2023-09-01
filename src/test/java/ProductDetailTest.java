@@ -25,7 +25,7 @@ public class ProductDetailTest extends BaseTest
         ProductPage productPage = new ProductPage(DriverManager.getDriver().driver);
         String productPageProductName = productPage.getProductName(productName);
         String productPageProductPrice = productPage.getProductPrice(productName);
-        
+
         Assertions.assertEquals(mainPageProductName, productPageProductName);
         Assertions.assertEquals(mainPageProductPrice, productPageProductPrice);
     }
